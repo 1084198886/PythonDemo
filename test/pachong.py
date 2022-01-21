@@ -15,8 +15,9 @@ headers = {
                   "Chrome/81.0.4044.129 Safari/537.36",
 }
 response = requests.get(url, headers=headers, timeout=10)
+# requests.post(url,data=dict(key1="value1"))
 html = response.text
-# print(html)
+print(html)
 
 parse = etree.HTML(html)  # 解析网页
 all_tr = parse.xpath('//*[@id="173200"]')  # 每一行数据对应源码里的一个id=173200的tr，那就先把这些tr都提取下来

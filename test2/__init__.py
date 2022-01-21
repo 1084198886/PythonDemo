@@ -1,0 +1,1 @@
+print("test2  __init__.py")
