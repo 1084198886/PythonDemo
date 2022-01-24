@@ -10,6 +10,8 @@ import time
 import traceback
 from enum import Enum, unique
 
+from urllib3._collections import RLock
+
 
 class TheFirstDemo:
     """
@@ -702,3 +704,15 @@ class AttrTest:
 attr = AttrTest()
 print(f"max_retries={attr.max_retries}  config={attr.config}  _pool_connections={attr.pool_connections}")
 # 说明：因为_pool_connections属性开头有_,是受保护的，为了便于其它模块访问，定义pool_connections方法，并注解即可
+
+if True and False:
+    print("true")
+else:
+    print("False")
+
+print(str("a"))
+print(repr("a"))
+print(len('aaaa'))
+
+bytes('aa')
+bytearray()

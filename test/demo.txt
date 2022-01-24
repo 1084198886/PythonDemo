@@ -1,14 +1,2 @@
-abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文abc
-我是中文
+open file using with
+a new line

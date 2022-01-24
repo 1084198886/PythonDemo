@@ -292,17 +292,41 @@ print("差集:", set01 - set02)  # 取一个集合中另一集合没有的元素
 print("对称差集:", set01 ^ set02)  # 取集合 A 和 B 中不属于 A&B 的元素
 
 set01.add(3)
-set01.remove(4)
+# set01.remove(4)
 set01.clear()
 set01.copy()
 set01.difference(set02)
 set01.difference_update(set02)
 set01.discard(1)
 set01.issubset(set02)
-set01.pop()
+# set01.pop()
 set01.union(set02)
 set01.update(set02)
 '''
 frozenset  不可变集合
 '''
 set03 = frozenset(['Java', 'Shell'])
+
+barray = bytearray('aaaa', encoding="UTF-8")
+# barray.insert(0, 'b')
+# barray.extend('ab')
+# barray.pop(1)
+# barray.remove(3)
+# barray.clear()
+# barray.reverse()
+print(len(barray))
+print('decode result:', barray.decode())
+
+print("a|b|c".split("|"))
+
+bts = bytes()
+hexstr = bts.fromhex("B9 01EF")
+print(hexstr)
+print(bytes.fromhex('B9 01EF'))
+
+lst = ['a', 'b', 'c']
+print('/'.join(lst))
+
+ba = bytearray()
+ba.append(65)
+print(ba.decode())
