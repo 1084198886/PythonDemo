@@ -108,3 +108,11 @@ def opentest(req):
 
 opentest("I'am a string")
 opentest(UnboundLocalError())
+
+lt = [1, 2, 3]
+
+# for block in iter(lambda: f.read(4096), b''):  # TODO
+
+for i in iter(lt):
+    print("iter=", i)
+

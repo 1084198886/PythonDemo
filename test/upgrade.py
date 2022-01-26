@@ -30,6 +30,7 @@ def zip_file(apk, flag):
     fileDir = path.dirname(apk)
     version = subprocess.check_output(
         ['git', 'describe', '--abbrev=4', '--dirty', '--always', '--tags']).strip().decode('utf-8')
+
     zipFile = fileDir + '/' + flag + '-' + version + '.zip'
     print('zipFile = ' + zipFile)
 
@@ -46,6 +47,7 @@ def zip_file(apk, flag):
 ####################################################
 
 if __name__ == '__main__':
+    print(sys.argv)
     if len(sys.argv) < 2 or (sys.argv[1] != 'sw' and sys.argv[1] != 'nc' and sys.argv[1] != 'lc'):
         print('miss parameter:sw or nc or lc')
         print('sw --build swlib apk')

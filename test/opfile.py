@@ -5,6 +5,7 @@ import os
 import pickle
 import urllib
 from time import time
+from os import path
 
 # 写文件
 from urllib.request import urlopen
@@ -71,6 +72,9 @@ print("response: ", response.text)
 html = etree.HTML(response.text)
 print("html:", html)
 
+""""
+文件操作
+"""
 ltdir = os.listdir()
 print(ltdir)
 if 'mydir' not in ltdir:
@@ -85,3 +89,15 @@ if 'subdir' not in os.listdir():
 os.chdir('subdir')
 with open('subfile.txt', 'w+', encoding="UTF-8") as f:
     f.write("写入了一个中文1222!")
+os.chdir('../../')
+
+for f in os.listdir():
+    if os.path.isdir(f) and os.path.exists(f):
+        print('存在的目录:', f)
+
+print(path.dirname("./sdfsdf/fsdfds/relase/app.apk"))
+
+print(os.getpid())
+print(os.getppid())
+procesid = os.fork()
+print(procesid)
