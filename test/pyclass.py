@@ -552,7 +552,7 @@ other_funB("Python教程：", "http://c.biancheng.net/python")
 # 异常处理机制
 
 try:
-    print(2 / 0)
+    print(2 / 1)
     # raise KeyError("FSFSF")
 except (ZeroDivisionError, ValueError) as ex:
     # print("args err1:   ", ex.args)
@@ -714,5 +714,19 @@ print(str("a"))
 print(repr("a"))
 print(len('aaaa'))
 
-bytes('aa')
-bytearray()
+
+# __slots__用法
+
+class SlotTest(object):
+    __slots__ = ("method1", "sayA")
+
+    def __init__(self):
+        self.method1 = "ffff"
+
+    def sayA(self):
+        return self.method1
+
+
+st = SlotTest()
+print(st.method1)
+print(st.say())

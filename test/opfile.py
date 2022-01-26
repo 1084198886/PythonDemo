@@ -71,5 +71,17 @@ print("response: ", response.text)
 html = etree.HTML(response.text)
 print("html:", html)
 
+ltdir = os.listdir()
+print(ltdir)
+if 'mydir' not in ltdir:
+    print("mydir not exist, start create")
+    os.mkdir("mydir")
+os.chdir('mydir')
 
-urlopen
+if 'subdir' not in os.listdir():
+    print("subdir not exist, start create")
+    os.mkdir('subdir')
+
+os.chdir('subdir')
+with open('subfile.txt', 'w+', encoding="UTF-8") as f:
+    f.write("写入了一个中文1222!")

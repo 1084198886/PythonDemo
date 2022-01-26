@@ -2,7 +2,9 @@
 """
 多行注释，使用3个多引号
 """
+import tempfile
 import time
+from io import StringIO, BytesIO
 
 '''
 多行注释，使用3个单引号
@@ -330,3 +332,43 @@ print('/'.join(lst))
 ba = bytearray()
 ba.append(65)
 print(ba.decode())
+
+ss = True
+if ss is True:
+    print("flag1")
+else:
+    print("flag2")
+
+# global关键字用法
+globalpara = None
+
+
+def changeGlobalPara():
+    global globalpara
+    globalpara = 2
+
+
+changeGlobalPara()
+print(globalpara)
+
+empFile = tempfile.NamedTemporaryFile(delete=False)
+print("tempfile=", empFile.name)
+empFile.write("a new linelfasjlkfjasljflksajfasjlfjsdljk".encode(encoding="UTF-8"))
+empFile.close()
+
+# 使用StringIO进行字符串操作
+with StringIO() as f:
+    f.write('AB')
+    f.write('CD')
+    print("StringIO写入字符串后：", f.getvalue())
+
+with  StringIO("StringIO line") as strio:
+    print("StringIO 读取字符串后：", strio.readline())
+
+# BytesIO实现了在内存中读写bytes
+with BytesIO() as bio:
+    bio.write('中文'.encode(encoding="UTF-8"))
+    print("BytesIO写入的内容为：", bio.getvalue())  # b'\xe4\xb8\xad\xe6\x96\x87'
+
+with  BytesIO(b'\xe4\xb8\xad\xe6\x96\x87') as f:
+    print("BytesIO ：", f.getvalue().decode(encoding="UTF-8"))
