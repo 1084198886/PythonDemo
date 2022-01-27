@@ -104,7 +104,10 @@ sht.pictures.add(fig, name='MyPlot', update=False, left=sht.range('F8').left,
 操作sheet2
 """
 sht2 = wb.sheets('sheet2')
-sht2.range('A1').value = "A1111"
+sht2.range('a1').value = ['序号', '书名（@知乎 东写西读整理）', '总浏览次数', '霸榜高校数', '霸榜率', '在高校榜单排名中位数', '豆瓣评分',
+                          '豆瓣链接（@知乎 东写西读整理）']  # 更改标题行
+sht2[0:2, 4:0].api.Font.HorizontalAlignment = -4108
+
 
 """
 以下方法时保存后自动 释放资源，然后关闭
@@ -112,3 +115,14 @@ sht2.range('A1').value = "A1111"
 # wb.save()
 # wb.close()
 # app.quit()
+
+
+
+
+
+
+
+
+
+
+

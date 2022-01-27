@@ -718,15 +718,22 @@ print(len('aaaa'))
 # __slots__用法
 
 class SlotTest(object):
-    __slots__ = ("method1", "sayA")
+    # __slots__ = ("method1", "sayA")
 
     def __init__(self):
         self.method1 = "ffff"
 
-    def sayA(self):
-        return self.method1
+    def sayA(self) -> str:
+        return 'sayA method has bean invoked '
+
+    def sell_fruit(self, flag: float) -> str:
+        print("sell_fruit")
+        return 'I\'am selling fruit !'
 
 
 st = SlotTest()
 print(st.method1)
-print(st.say())
+print(st.sayA())
+st.sell_fruit(1)
+
+print('{arg1}|{arg2}'.format(arg1=1, arg2=2))
