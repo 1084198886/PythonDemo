@@ -8,6 +8,7 @@ import os
 import sys
 import time
 import traceback
+from abc import abstractmethod
 from enum import Enum, unique
 
 from urllib3._collections import RLock
@@ -737,3 +738,86 @@ print(st.sayA())
 st.sell_fruit(1)
 
 print('{arg1}|{arg2}'.format(arg1=1, arg2=2))
+
+dict2 = dict({1: 1, 2: 2})
+
+
+class ClsC:
+    pass
+
+
+from abc import ABCMeta
+
+
+class ClsA:
+
+    def __init__(self):
+        self.a = 2
+        print("A init")
+
+    # @abstractmethod
+    # def say(self, para: ClsC):
+    #     pass
+    # print("A say  ", para)
+
+
+class ClsB(ClsA):
+    clas_a = ClsA
+    cls_b = ClsA()
+    cls_c: ClsA = {}
+
+
+a = ClsA()
+clsB = ClsB()
+# print("clas_a=", clsB.clas_a.say("@#$"))
+print("clas_a 类型=", type(clsB.clas_a))
+print("clas_b 类型=", type(clsB.cls_b))
+print("clas_c 类型=", type(clsB.cls_c))
+
+
+class Payment(metaclass=ABCMeta):  # 其中metaclass=ABCMeta是必需的
+
+    @abstractmethod  # 调用@abstractmethod规定子类必须有pay方法，否则会报错
+    def pay(self, money):
+        pass
+
+    @abstractmethod
+    def pay2(self):
+        pass
+
+    @abstractmethod
+    def pay3(self):
+        pass
+
+    @abstractmethod
+    def pay4(self):
+        pass
+
+
+class Wechatpay(Payment):
+    def pay4(self):
+        pass
+
+    def pay(self, money):
+        pass
+
+    def pay2(self):
+        pass
+
+    def pay3(self):
+        pass
+
+
+print(os.path.join("a", 'b'))
+
+file = open('demo.txt', mode='w')
+file.write('1\n')
+file.writelines('2\n')
+file.writelines(['3\n', '4'])
+file.close()
+time.sleep(0.5)
+
+file = open('demo.txt', mode='r')
+lines = file.readlines()
+for line in lines:
+    print(line)

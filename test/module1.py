@@ -3,11 +3,12 @@
 name = "Python教程"
 add = "http://c.biancheng.net/python"
 
+
 def say():
     print("人生苦短，我学Python！")
 
 
-def __HideFunc():
+def hide_func():
     print("I'am a hide func")
 
 
@@ -20,6 +21,7 @@ class CLanguage:
         print(self.name, self.add)
 
 
+__all__ = ['say', 'CLanguage']
 # __main__的用法
 #
 # if __name__ == '__main__':

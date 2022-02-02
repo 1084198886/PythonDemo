@@ -1,15 +1,17 @@
-from flask import Flask, url_for, request, redirect, abort
+from flask import Flask, url_for, request, redirect, abort, render_template, make_response
+from flask.typing import ResponseReturnValue
+from flask.views import View
 
 """
 flask使用
 """
-app = Flask(__name__)
+app = Flask(__name__, template_folder='./templates')
 
 
 def config_flask():
     """参数配置"""
     # app.config['DEBUG'] = True  # 手动设置配置
-    app.config.from_object('config')  # 以模块名加载配置文件
+    app.config.from_object('local_config')  # 以模块名加载配置文件
     # app.config.from_pyfile('config.py', silent=False)  # 以文件名加载配置文件
 
 
@@ -66,6 +68,44 @@ def secret():
     abort(401)  # abort 放弃请求，禁止访问
     return 'This is never executed !'
 
+
+@app.errorhandler(404)
+def not_found():
+    return make_response(render_template('error.html'), 404)
+
+
+'''静态文件管理'''
+
+'''标准视图'''
+
+
+class BaseView(View):
+    def get_template_name(self):
+        raise NotImplementedError()
+
+    def render_template_name(self, context):
+        return render_template(self.get_template_name(), **context)
+
+    def dispatch_request(self) -> ResponseReturnValue:
+        if request.method != 'GET':
+            return 'UNSUPPORTED!'
+        context = {'users': self.get_users()}
+        return self.render_template_name(context)
+
+    def get_users(self):
+        pass
+
+
+class UserView(BaseView):
+
+    def get_template_name(self):
+        return './templates/users.html'
+
+    def get_users(self):
+        return [{'username': 'fake'}]
+
+
+app.add_url_rule('/users', view_func=UserView.as_view('userview'))
 
 if __name__ == '__main__':
     app.run()
