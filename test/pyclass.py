@@ -821,3 +821,29 @@ file = open('demo.txt', mode='r')
 lines = file.readlines()
 for line in lines:
     print(line)
+
+print('ord()用法：', ord('a'))
+print('chr()用法：', chr(99))
+print('hex()用法：', hex(99))
+
+s = r'"我是原始字符串"\n'
+print(s)
+
+
+class T1:
+    def __init__(self, name):
+        print("T1 init:", type(name))
+
+    def __call__(self, *args, **kwargs):
+        print(args)
+        return 0
+
+
+class T2:
+    def __init__(self, name):
+        print("T2 init:", type(name))
+
+
+t1 = T1('zhangsan')
+doc = t1('a', 'b')
+doc2 = t1.__call__('a', 'b')
