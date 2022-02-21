@@ -829,6 +829,11 @@ print('hex()用法：', hex(99))
 s = r'"我是原始字符串"\n'
 print(s)
 
+str2 = "ww.ww.ww"
+print(str2.partition("."))
+print(str2.rpartition(".")[0])
+print("Abbbbc".replace('b', 'B', 1))
+
 
 class T1:
     def __init__(self, name):
