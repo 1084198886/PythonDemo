@@ -848,6 +848,11 @@ class T2:
     def __init__(self, name):
         print("T2 init:", type(name))
 
+class T3:
+    def __init__(self):
+        print("fdsfds")
+        aa="aa"
+
 
 t1 = T1('zhangsan')
 doc = t1('a', 'b')
