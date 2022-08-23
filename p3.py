@@ -443,7 +443,7 @@ from multiprocessing.managers import BaseManager
 
 print('----------datetime-------------')
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 now = datetime.now()
 print(now)  # 2022-08-22 15:44:33.692142
@@ -454,3 +454,97 @@ print(timestamp)  # 把datetime转换为timestamp
 
 dtime = datetime.fromtimestamp(timestamp)  # timestamp转换为datetime
 print(dtime)
+
+print(datetime.utcfromtimestamp(timestamp))
+
+# str转换为datetime
+cday = datetime.strptime('2015-6-1 18:19:59', '%Y-%m-%d %H:%M:%S')
+print(cday)
+
+# datetime转换为str
+sday = cday.strftime('%Y-%m-%d %H:%M:%S')
+print('datetime转换为str >>> ', sday)
+
+now = datetime.now()
+print(now)
+delta = now + timedelta(hours=1)
+print(delta)
+delta = now - timedelta(hours=1)
+print(delta)
+
+from collections import namedtuple, deque, defaultdict, OrderedDict
+from math import pi
+
+Circle = namedtuple('Circle', ['x', 'y', 'r'])
+p = Circle(1, 2, 4)
+print(f'x={p.x}, y={p.y}, r={p.r}')
+
+lt = [1, 2, 3, 4]
+q = deque(lt)
+print(q)
+q.append(5)
+q.pop()
+print(q)
+q.appendleft(-1)
+q.popleft() - 1
+print(q)
+
+dd = defaultdict(lambda: 'N/A')
+dd['key1'] = 'abc'
+print(dd['key1'])
+print(dd['key2'])
+
+dt = dict([('a', 1), ('b', 2), ('c', 3)])
+print('dt=', dt)
+
+od = OrderedDict()
+od['key1'] = 'val1'
+od['key2'] = 'val2'
+od['key3'] = 'val3'
+print(od)
+
+from collections import ChainMap
+import os, argparse
+
+defaults = {
+    'color': 'red',
+    'user': 'guest',
+}
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--user')
+parser.add_argument('-c', '--color')
+namespace = parser.parse_args()
+cmd_lines_args = {k: v for k, v in vars(namespace).items() if v}
+print('cmd_lines_args=', cmd_lines_args)
+
+# 组合成ChainMap:
+combined = ChainMap(cmd_lines_args, os.environ, defaults)
+print(f'color={combined["color"]}')
+print(f'user={combined["user"]}')
+
+from collections import Counter
+
+import base64
+
+enstr = base64.encodebytes(b'fsdfjds')
+print(enstr)
+print(base64.decodebytes(enstr))
+
+safeenstr = base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff')
+print('safe encode=', safeenstr)
+print(base64.urlsafe_b64decode(safeenstr))
+
+import struct
+
+packb = struct.pack('>I', 10240099)
+print(packb)
+# print(struct.unpack('>IH', b'\xf0\xf0\xf0\xf0\x80\x80'))
+print(struct.unpack('>I', packb))
+
+print(struct.pack('>s', b'abc'))
+
+import hashlib
+
+md5 = hashlib.md5()
+md5.update('abc'.encode('utf-8'))
+print('md5=',md5.hexdigest())
