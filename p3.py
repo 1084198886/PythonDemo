@@ -547,4 +547,222 @@ import hashlib
 
 md5 = hashlib.md5()
 md5.update('abc'.encode('utf-8'))
-print('md5=',md5.hexdigest())
+print('md5=', md5.hexdigest())
+
+import hmac
+
+message = b'hello world!'
+key = b'secrate'
+h = hmac.new(key, message, digestmod='MD5')
+print(h.hexdigest())
+
+import itertools
+
+natual = itertools.count(1)  # 从1开始的自然数
+# for n in natual:
+#     print(n)
+
+ns = itertools.takewhile(lambda x: x <= 20, natual)
+print(list(ns))
+
+ns = itertools.repeat('ABC', 3)
+for n in ns:
+    print(n)
+
+ch = itertools.chain('AB', 'CD')
+print(list(ch))
+
+gb = itertools.groupby('AAABBBCCAAA')
+for key, group in gb:
+    print(key, list(group))
+
+try:
+    f = open('p2.py', 'r')
+finally:
+    if f:
+        f.close()
+
+print('------------with-----------------')
+
+
+class ContextClas(object):
+    def __init__(self, name):
+        print(f'{name}')
+        self.name = name
+
+    def __enter__(self):
+        print('enter')
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(f'exit exc_type:{exc_type}')
+
+    def query(self):
+        print(f'query info about {self.name}')
+
+
+with ContextClas('bob') as q:
+    q.query()
+
+from contextlib import contextmanager, closing
+
+
+class ContextQuery(object):
+    def __init__(self, name):
+        self.name = name
+
+    def query(self):
+        print(f'query info about {self.name}')
+
+
+@contextmanager
+def create_query(name):
+    print('begin')
+    q = ContextQuery(name)
+    yield q
+    print('end')
+
+
+with create_query('Bob') as q:
+    q.query()
+
+
+@contextmanager
+def tag(name):
+    print(f'<{name}>')
+    yield
+    print(f'</{name}>')
+
+
+with tag("h1"):
+    print('hello world!')
+
+from urllib import request, parse
+
+with request.urlopen('https://www.liaoxuefeng.com/wiki/1016959663602400/1019223241745024') as f:
+    data = f.read()
+    print(f'Status:{f.status} reason:${f.reason}')
+    # for k, v in f.getheaders():
+    #     print(f'{k}   {v}')
+    # print(data.decode('utf-8'))  # html内容
+
+req = request.Request('http://www.douban.com/')
+req.add_header('User-Agent',
+               'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) '
+               'Version/8.0 Mobile/10A5376e Safari/8536.25')
+
+with request.urlopen(req) as f:
+    print('Status:', f.status, f.reason)
+    for k, v in f.getheaders():
+        print(f'{k}   {v}')
+    # print(data.decode('utf-8'))  # html内容
+
+print('----------POST请求-------------')
+
+login_data = parse.urlencode([
+    ('username', 'example@python.org'),
+    ('password', '123456'),
+    ('entry', 'mweibo'),
+    ('client_id', ''),
+    ('savestate', '1'),
+    ('ec', ''),
+    ('pagerefer', 'https://passport.weibo.cn/signin/welcome?entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')
+])
+
+req = request.Request('https://passport.weibo.cn/sso/login')
+req.add_header('Origin', 'https://passport.weibo.cn')
+req.add_header('User-Agent',
+               'Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) '
+               'Version/8.0 Mobile/10A5376e Safari/8536.25')
+req.add_header('Referer',
+               'https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=http%3A%2F%2Fm.weibo.cn%2F')
+
+with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+    print('Status:', f.status, f.reason)
+    for k, v in f.getheaders():
+        print('%s: %s' % (k, v))
+    print('Data:', f.read().decode('utf-8'))
+
+# 代理访问
+proxy_handler = request.ProxyHandler({'http': 'http://www.example.com:3128/'})
+proxy_auth_hander = request.ProxyBasicAuthHandler()
+proxy_auth_hander.add_password('realm', 'host', 'username', 'password')
+opener = request.build_opener(proxy_handler, proxy_auth_hander)
+# with opener.open('http://www.example.com/login.html') as f:
+#     print('Status:', f.status, f.reason)
+
+from xml.parsers.expat import ParserCreate
+
+
+class DefaultSaxHandler(object):
+    def start_element(self, name, attrs):
+        print(f'start: {name}, attrs: {str(attrs)}')
+
+    def end_element(self, name):
+        print(f'end: {name}')
+
+    def char_data(self, text):
+        print(f'char_data: {text}')
+
+
+print('----------xml--------------')
+xml = r'''<?xml version="1.0"?>
+<ol>
+    <li><a href="/python">Python</a></li>
+    <li><a href="/ruby">Ruby</a></li>
+</ol>
+'''
+print(xml)
+
+nstr = r"""\fsdfsdfjsl"""
+nstr = r'''\fsdfsdfjsl'''
+nstr = r'\r'
+nstr = r"\fsdfs"
+nstr = r'''fffffffff"'''
+print(nstr)
+
+handler = DefaultSaxHandler()
+parser = ParserCreate()
+parser.StartElementHandler = handler.start_element
+parser.EndElementHandler = handler.end_element
+parser.CharacterDataHandler = handler.char_data
+parser.Parse(xml)
+
+print('------------HTMLParser------------------')
+from html.parser import HTMLParser
+from html.entities import name2codepoint
+
+
+class MyHtmlParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print('<%s>' % tag)
+
+    def handle_endtag(self, tag):
+        print('</%s>' % tag)
+
+    def handle_startendtag(self, tag, attrs):
+        print('<%s/>' % tag)
+
+    def handle_data(self, data):
+        print(data)
+
+    def handle_comment(self, data):
+        print('<!--', data, '-->')
+
+    def handle_entityref(self, name):
+        print('&%s;' % name)
+
+    def handle_charref(self, name):
+        print('&#%s;' % name)
+
+
+html = '''<html>
+<head></head>
+<body>
+<!-- test html parser -->
+    <p>Some <a href=\"#\">html</a> HTML&nbsp;tutorial...<br>END</p>
+</body></html>'''
+
+parser = MyHtmlParser()
+parser.feed(html)
+
