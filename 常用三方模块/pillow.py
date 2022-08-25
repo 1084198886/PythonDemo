@@ -14,3 +14,7 @@ print(f'w={w}  h={h}')
 img.thumbnail((w // 2, h // 2))
 print('Resize image to: %sx%s' % (w // 2, h // 2))
 img.save('thumbnail.jpg', 'jpeg')
+
+import sys
+
+print(sys.path)
