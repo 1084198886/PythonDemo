@@ -15,7 +15,7 @@ def sha256_checknum(apk):
     srcFile = open(apk, 'rb')
     with srcFile as f:
         for block in iter(lambda: f.read(4096), b''):
-            hash256.update(block);
+            hash256.update(block)
     srcFile.close()
     hash256.update(b'nzoqPYMIu91VViA/mEIG5FtJXi8=')
 

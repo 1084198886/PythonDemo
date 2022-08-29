@@ -33,8 +33,6 @@ finally:
 # from sqlalchemy.ext.declarative import declarative_base
 #
 
-from mymodule import *
-
 import urllib3
 import chardet
 import charset_normalizer
@@ -229,3 +227,288 @@ mp['key1'] = None
 # mp['key2'] = None
 mp.setdefault('key2', False)
 print(mp)
+
+print(all([True, None]))
+
+s = '1'
+s += '2'
+print(s)
+s = 1
+s += 1
+print(s)
+
+print(6 / 3)
+
+import hashlib
+
+
+def md5(bs):
+    md5str = hashlib.md5(bs).hexdigest()
+    print('md5:' + md5str)
+    return hex
+
+
+import time
+import os
+
+print(md5('abcdefg1'.encode('utf-8')))
+print(time.ctime().encode('utf-8'))
+
+by = os.urandom(8)
+print(by)
+base = 'ffffffffffffffffffffffffffffffffffffff' \
+       'fffffffffffff'
+
+print(sys.version_info)
+
+import copy
+
+lt = [1, [1, 2]]
+c = copy.copy(lt)
+print(lt == c)
+c = copy.deepcopy(lt)
+print(lt == c)
+
+
+def tuple_test():
+    return 1, 2
+
+
+print(tuple_test())  # (1, 2)
+
+
+def getNoSameItems(domains):
+    lst = []
+    for item in domains:
+        if item is not None and item not in lst:
+            lst.append(item)
+    print(lst)
+
+
+ret = getNoSameItems([1, 1, 4, 6, 7, 7, None, ''])
+print(ret)  # [1, 4, 6, 7]
+
+print('--------------------')
+o = [1, [3, 4]]
+c = copy.deepcopy(o)
+id0 = id(o)
+id1 = id(c)
+print(o, '   ', c)
+print(f'id0={id0}   id1={id1}  {id0 == id1}')
+
+o.append(6)
+print(o, '   ', c)
+o[1].append(5)
+print(o, '   ', c)
+
+result = {
+    'version': 1,
+    'rfc2109': False,
+}
+print(set(result))
+print(set({'version': 2, 'rfc2109': False, 'a': 1}) - set(result))
+
+print(time.time())
+
+import calendar
+
+print(calendar.calendar(2022))
+
+morsel = {'expires': '%Y:%m:%d %H:%M:%S'}
+time_template = '%a, %d-%b-%Y %H:%M:%S GMT'
+expires = calendar.timegm(time.gmtime())
+g = time.gmtime()
+print(g)
+print(expires)
+
+import sys
+
+try:
+    flag = sys.version_info == '1.1'
+    if flag:
+        raise Exception('error occured')
+    print('success')
+except Exception as e:
+    print('error happended:' + repr(e))
+else:
+    print('fdsfs')
+
+import platform
+
+print(platform.python_implementation())
+print(platform.python_version())
+print(platform.python_version_tuple())
+print(platform.platform())
+print(platform.version())
+print(platform.architecture())
+print(platform.uname())
+
+
+class Info:
+    def __init__(self):
+        self.stuempno = '1202020'
+        self.name = 'zhangsan'
+
+    def __bool__(self):
+        print('__bool__ 调用了')
+        return False
+
+    @property
+    def my_stu(self):
+        return self.stuempno
+
+    def __call__(self, *args, **kwargs):
+        print('__call__:  ', args)
+
+
+info = Info()
+print(info.my_stu)
+print(info(1, 2, 2))
+print('bool(info)=', bool(info))
+
+
+class A(dict):
+    def __call__(self, *args, **kwargs):
+        print(args)
+
+
+class B(list):
+    def __call__(self, *args, **kwargs):
+        print(args)
+
+
+i = (A, B)
+print(hasattr(A, '__call__'))
+print(hasattr(B, '__call__'))
+if hasattr(i, '__call__'):
+    infos = [i]
+    print(infos)
+
+from urllib.parse import urlsplit, urlencode
+
+print('urlsplit:', urlsplit('https://baidu.com/home/a?a=1&b=2'))
+print('urlparse:', urlparse('https://baidu.com/home/a?a=1&b=2'))
+
+v = vars(info)
+print(v, type(v))
+print(v.items())
+print(v.get('stuempno'))
+
+print(urlencode({'a': 1, 'b': 2}))
+print(urlencode([('a', 1), ('b', 2)]))
+
+mp = {'a': 1, 'b': 2}
+it = mp.items()
+print(list(it))
+
+A = [1, 2]
+A.extend([3, 4])
+A.extend((5, 6))
+print(A)
+
+mp = {'a': None, 'b': 1, 'c': '', 'd': 2}
+none_keys = [k for k, v in mp.items() if not v]
+for key in none_keys:
+    del mp[key]
+print(mp)
+
+from urllib.parse import urljoin
+
+print(urljoin('http://baidu.com', 'home/fsd'))
+
+
+def genera():
+    for i in range(5):
+        yield i * i
+
+
+g = genera()
+print(next(g))
+print(next(g))
+print(next(g))
+
+print('http://baidu.com'.startswith(('http', 'b')))
+
+import zipfile
+
+zip = zipfile.ZipFile('zipf.zip', 'w', zipfile.ZIP_DEFLATED)
+zip.write('good_09.png')
+zip.write('pillow.py')
+for zname in zip.namelist():
+    print(zname)
+for zname in zip.infolist():
+    print(zname)
+zip.close()
+
+import tempfile
+
+print(tempfile.gettempdir())
+print(os.path.join(tempfile.gettempdir(), 'ff'))
+print(os.path.exists(tempfile.gettempdir() + '/f'))
+
+print(sys.version_info)
+
+# emp_file = tempfile.mkstemp(dir='.')
+# print(emp_file)
+
+fd = os.open('pillow.py', os.O_RDWR)
+print(fd)
+# os.fdopen()
+
+item = [1, 2, 3, 4]
+print(item[:1])
+print(item[-2:])
+print(item[1:-1])
+
+a = 2
+if a != 2:
+    print('a!=2')
+
+
+def method1(mname):
+    def m1(age):
+        print(f'{mname}  {age}')
+
+    return m1
+
+
+method1('a')('b')
+
+
+def loop():
+    for n in range(5):
+        yield n
+
+
+ge = loop()
+nex = next(ge)
+print(nex)
+print(sys.maxunicode)
+
+import codecs
+
+t = codecs.lookup('utf-8')
+print((t[0], t[1]))
+print(t[2], t[3])
+
+# import  csv
+# reader = codecs.getreader('utf-8')
+# textstream = reader([1,3])
+# csv.DictReader(textstream)
+# writer = codecs.getwriter('utf-8')
+# encoder = codecs.getencoder('utf-8')
+# decoder = codecs.getdecoder('utf-8')
+
+import struct
+import socket
+
+ip = '192.168.1.1'
+struct.pack('')
+ipaddr = struct.unpack('=L', socket.inet_aton(ip))[0]
+print(ipaddr)
+
+a = 12
+bts = struct.pack('i', a)
+print(bts)
+s = struct.unpack('i', bts)
+print(s)
